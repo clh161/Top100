@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco-android'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
+    }
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -13,6 +22,9 @@ android {
         jackOptions {
             enabled true
         }
+        lintOptions {
+            abortOnError false
+        }
     }
     buildTypes {
         release {
@@ -24,6 +36,15 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+}
+
+jacocoAndroidUnitTestReport {
+    excludes += [
+            '**/*_ViewBinding.*',
+            '**/*_Factory.*',
+            '**/jhub/injection/**',
+            '**/jhub/model/**'
+    ]
 }
 
 dependencies {
