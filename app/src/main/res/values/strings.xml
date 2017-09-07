@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Top100</string>
+    <string name="app_icon_description">App icon</string>
 </resources>
