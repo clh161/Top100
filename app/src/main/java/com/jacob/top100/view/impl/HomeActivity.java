@@ -7,6 +7,7 @@ import com.jacob.top100.R;
 import com.jacob.top100.injection.AppComponent;
 import com.jacob.top100.injection.DaggerHomeViewComponent;
 import com.jacob.top100.injection.HomeViewModule;
+import com.jacob.top100.model.MobileAppFeed;
 import com.jacob.top100.presenter.HomePresenter;
 import com.jacob.top100.presenter.loader.PresenterFactory;
 import com.jacob.top100.view.HomeView;
@@ -41,5 +42,10 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     @Override
     protected PresenterFactory<HomePresenter> getPresenterFactory() {
         return mPresenterFactory;
+    }
+
+    @Override
+    public void setApps(MobileAppFeed apps) {
+
     }
 }

@@ -3,6 +3,7 @@ package com.jacob.top100.injection;
 import android.content.Context;
 
 import com.jacob.top100.Top100;
+import com.jacob.top100.api.AppStoreApi;
 
 import javax.inject.Singleton;
 
@@ -14,4 +15,6 @@ public interface AppComponent {
     Context getAppContext();
 
     Top100 getApp();
+
+    AppStoreApi getAppStoreApi();
 }

@@ -6,16 +6,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.jacob.top100.Top100;
 import com.jacob.top100.injection.AppComponent;
 import com.jacob.top100.presenter.BasePresenter;
 import com.jacob.top100.presenter.loader.PresenterFactory;
 import com.jacob.top100.presenter.loader.PresenterLoader;
+import com.jacob.top100.view.BaseView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
+public abstract class BaseActivity<P extends BasePresenter<V>, V extends BaseView> extends AppCompatActivity implements LoaderManager.LoaderCallbacks<P> {
     /**
      * Do we need to call {@link #doStart()} from the {@link #onLoadFinished(Loader, BasePresenter)} method.
      * Will be true if presenter wasn't loaded when {@link #onStart()} is reached
@@ -115,4 +117,8 @@ public abstract class BaseActivity<P extends BasePresenter<V>, V> extends AppCom
      * @param appComponent the app component
      */
     protected abstract void setupComponent(@NonNull AppComponent appComponent);
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
