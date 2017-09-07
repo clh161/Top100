@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.jacob.top100.interactor.HomeInteractor;
 import com.jacob.top100.model.HttpResponse;
-import com.jacob.top100.model.MobileAppFeed;
+import com.jacob.top100.model.MobileApp;
 import com.jacob.top100.presenter.HomePresenter;
 import com.jacob.top100.view.HomeView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,9 +25,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     @Override
     public void onStart(boolean viewCreated) {
         super.onStart(viewCreated);
-        mInteractor.getTopFreeApps(mTopFreeAppLimit, new HttpResponse<MobileAppFeed>() {
+        mInteractor.getTopFreeApps(mTopFreeAppLimit, new HttpResponse<List<MobileApp>>() {
             @Override
-            public void onSuccess(MobileAppFeed apps) {
+            public void onSuccess(List<MobileApp> apps) {
                 mView.setApps(apps);
             }
 

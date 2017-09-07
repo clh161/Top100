@@ -2,31 +2,40 @@ package com.jacob.top100.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.jacob.top100.R;
+import com.jacob.top100.adapter.MobileAppAdapter;
 import com.jacob.top100.injection.AppComponent;
 import com.jacob.top100.injection.DaggerHomeViewComponent;
 import com.jacob.top100.injection.HomeViewModule;
-import com.jacob.top100.model.MobileAppFeed;
+import com.jacob.top100.model.MobileApp;
 import com.jacob.top100.presenter.HomePresenter;
 import com.jacob.top100.presenter.loader.PresenterFactory;
 import com.jacob.top100.view.HomeView;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> implements HomeView {
     @Inject
     PresenterFactory<HomePresenter> mPresenterFactory;
-
-    // Your presenter is available using the mPresenter variable
+    @BindView(R.id.list)
+    RecyclerView mList;
+    private MobileAppAdapter mAdapter = new MobileAppAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // Your code here
-        // Do not call mPresenter from here, it will be null! Wait for onStart or onPostCreate.
+        ButterKnife.bind(this);
+        mList.setLayoutManager(new LinearLayoutManager(this));
+        mList.setAdapter(mAdapter);
     }
 
     @Override
@@ -45,7 +54,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     }
 
     @Override
-    public void setApps(MobileAppFeed apps) {
-
+    public void setApps(List<MobileApp> apps) {
+        mAdapter.setMobileApps(apps);
+        mAdapter.notifyDataSetChanged();
     }
 }
