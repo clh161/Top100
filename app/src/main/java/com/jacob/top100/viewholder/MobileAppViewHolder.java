@@ -14,6 +14,8 @@ import butterknife.ButterKnife;
  * @author Jacob Ho
  */
 public class MobileAppViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.rank)
+    TextView mRank;
     @BindView(R.id.name)
     TextView mName;
     @BindView(R.id.icon)
@@ -30,6 +32,10 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView getIcon() {
         return mIcon;
+    }
+
+    public TextView getRank() {
+        return mRank;
     }
 }
 

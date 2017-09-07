@@ -30,6 +30,7 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
     @Override
     public void onBindViewHolder(MobileAppViewHolder holder, int position) {
         MobileApp mobileApp = mMobileApps.get(position);
+        holder.getRank().setText(String.valueOf(position + 1));
         holder.getName().setText(mobileApp.getName());
         List<MobileAppImage> images = mobileApp.getImages();
         if (!images.isEmpty())

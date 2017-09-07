@@ -6,10 +6,20 @@
                 android:orientation="vertical"
                 android:padding="@dimen/margin_small">
 
+    <TextView
+        android:id="@+id/rank"
+        style="@style/Text.Rank"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        tools:text="999"/>
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="72dp"
         android:layout_height="72dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_toEndOf="@id/rank"
         android:contentDescription="@string/app_icon_description"/>
 
     <LinearLayout
