@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 public interface AppStoreApi {
     Observable<MobileAppFeed> getTopFreeApps(int limit);
 
-    Observable<MobileAppFeed> getGrossFreeApps(int limit);
+    Observable<MobileAppFeed> getGrossApps(int limit);
 
     Observable<MobileAppFeed> getAppsDetails(List<Integer> ids);
 }

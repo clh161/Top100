@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.jacob.top100.interactor.HomeInteractor;
-import com.jacob.top100.interactor.impl.HomeInteractorImpl;
 import com.jacob.top100.model.HttpResponse;
 import com.jacob.top100.model.MobileApp;
 import com.jacob.top100.presenter.HomePresenter;
@@ -38,20 +37,41 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         setViewLoading(mIsLoading);
         mView.setTopFreeApps(mTopFreeApps);
         mView.setTopGrossApps(mTopGrossApps);
-        getApps();
+        getFreeApps(mListLoadMoreThreshold);
+        getGrossApps(mTopGrossAppLimit);
     }
 
-    private void getApps() {
+    private void getFreeApps(int limit) {
         setViewLoading(true);
-        mInteractor.getApps(mTopFreeAppLimit, mTopGrossAppLimit, new HttpResponse<HomeInteractorImpl.Apps>() {
+        mInteractor.getFreeApps(limit, new HttpResponse<List<MobileApp>>() {
             @Override
-            public void onSuccess(HomeInteractorImpl.Apps apps) {
+            public void onSuccess(List<MobileApp> apps) {
                 if (mView != null) {
                     setViewLoading(false);
-                    mTopFreeApps = apps.getFreeApps().getEntries();
-                    mTopGrossApps = apps.getGrossApps().getEntries();
-                    mView.setTopFreeApps(mTopFreeApps);
-                    mView.setTopGrossApps(mTopGrossApps);
+                    mTopFreeApps = apps;
+                    mView.setTopFreeApps(apps);
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                setViewLoading(false);
+                String message = e.getMessage();
+                if (message != null && mView != null)
+                    mView.showToast(message);
+            }
+        });
+    }
+
+    private void getGrossApps(int limit) {
+        setViewLoading(true);
+        mInteractor.getGrossApps(limit, new HttpResponse<List<MobileApp>>() {
+            @Override
+            public void onSuccess(List<MobileApp> apps) {
+                if (mView != null) {
+                    setViewLoading(false);
+                    mTopGrossApps = apps;
+                    mView.setTopGrossApps(apps);
                 }
             }
 
