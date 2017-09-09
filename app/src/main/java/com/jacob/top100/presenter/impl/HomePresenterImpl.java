@@ -1,7 +1,6 @@
 package com.jacob.top100.presenter.impl;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.jacob.top100.interactor.HomeInteractor;
 import com.jacob.top100.model.HttpResponse;
@@ -19,7 +18,6 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     private final HomeInteractor mInteractor;
     private final int mTopFreeAppLimit = 100;
     private final int mTopGrossAppLimit = 10;
-    private final int mTopFreeAppsMax = 100;
     private final int mListLoadMoreThreshold = 10;
     private boolean mIsLoading = false;
     private List<MobileApp> mTopFreeApps = new ArrayList<>();
@@ -94,10 +92,10 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
 
     @Override
     public void onListScroll(int totalItemCount, int lastVisibleItem) {
-        if (mTopFreeApps.size() < mTopFreeAppsMax)
-            if (!mIsLoading && totalItemCount == lastVisibleItem) {
+        if (mTopFreeApps.size() < mTopFreeAppLimit)
+            if (!mIsLoading && totalItemCount - 1 == lastVisibleItem) {
                 setViewLoading(true);
-                Log.d(getClass().getSimpleName(), "Get More");
+                getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
             }
     }
 }
