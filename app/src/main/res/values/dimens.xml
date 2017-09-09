@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="app_width">72dp</dimen>
+    <dimen name="app_height">72dp</dimen>
+    <dimen name="app_radius">16dp</dimen>
 </resources>

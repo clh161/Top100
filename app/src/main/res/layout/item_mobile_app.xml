@@ -17,12 +17,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/app_width"
+        android:layout_height="@dimen/app_height"
         android:layout_marginStart="@dimen/margin_small"
         android:layout_toEndOf="@id/rank"
         android:contentDescription="@string/app_icon_description"
-        app:riv_corner_radius="16dp"
+        app:riv_corner_radius="@dimen/app_radius"
         app:riv_mutate_background="true"/>
 
     <LinearLayout
