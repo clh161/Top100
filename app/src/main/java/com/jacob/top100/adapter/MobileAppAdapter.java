@@ -1,6 +1,6 @@
 package com.jacob.top100.adapter;
 
-import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,7 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
     private List<MobileApp> mMobileApps = new ArrayList<>();
     private final int mItemLayout;
 
-    public MobileAppAdapter(@IdRes int itemLayout) {
+    public MobileAppAdapter(@LayoutRes int itemLayout) {
         mItemLayout = itemLayout;
     }
 
