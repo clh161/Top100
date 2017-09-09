@@ -2,6 +2,7 @@ package com.jacob.top100.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -34,15 +35,29 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     ProgressBar mProgressBar;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
+    private LinearLayoutManager mTopFreeListLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        assert mPresenter != null;
+        mTopFreeListLayoutManager = new LinearLayoutManager(this);
+        mTopFreeList.setLayoutManager(mTopFreeListLayoutManager);
         mTopFreeList.setAdapter(mTopFreeAdapter);
         mTopGrossList.setAdapter(mTopGrossAdapter);
         mTopGrossAdapter.setNaughtyLayout(false);
+        mTopFreeList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView,
+                                   int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int totalItemCount = mTopFreeListLayoutManager.getItemCount();
+                int lastVisibleItem = mTopFreeListLayoutManager.findLastVisibleItemPosition();
+                mPresenter.onListScroll(totalItemCount, lastVisibleItem);
+            }
+        });
     }
 
     @Override
