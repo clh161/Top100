@@ -33,6 +33,9 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
         holder.getRank().setText(String.valueOf(position + 1));
         holder.getName().setText(mobileApp.getName());
         List<MobileAppImage> images = mobileApp.getImages();
+        float iconRoundedRadius = holder.getIcon().getResources().getDimension(R.dimen.app_radius);
+        float iconWidth = holder.getIcon().getResources().getDimension(R.dimen.app_height);
+        holder.getIcon().setCornerRadius(position % 2 == 0 ? iconRoundedRadius : iconWidth / 2);
         if (!images.isEmpty())
             Glide.with(holder.getIcon().getContext()).load(images.get(0).getUrl()).into(holder.getIcon());
         else

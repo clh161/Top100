@@ -2,10 +2,10 @@ package com.jacob.top100.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jacob.top100.R;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +19,7 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.name)
     TextView mName;
     @BindView(R.id.icon)
-    ImageView mIcon;
+    RoundedImageView mIcon;
 
     public MobileAppViewHolder(View itemView) {
         super(itemView);
@@ -30,7 +30,7 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
         return mName;
     }
 
-    public ImageView getIcon() {
+    public RoundedImageView getIcon() {
         return mIcon;
     }
 
