@@ -16,7 +16,12 @@ public class AppStoreApiImpl implements AppStoreApi {
     }
 
     @Override
-    public Observable<MobileAppFeed> getTopFreeApps(int topFreeAppLimit) {
-        return mRetrofit.getProfile(100);
+    public Observable<MobileAppFeed> getTopFreeApps(int limit) {
+        return mRetrofit.getTopFreeApps(limit);
+    }
+
+    @Override
+    public Observable<MobileAppFeed> getGrossFreeApps(int limit) {
+        return mRetrofit.getTopGrossApps(limit);
     }
 }

@@ -11,5 +11,8 @@ import retrofit2.http.Path;
  */
 public interface AppStoreApiRetrofit {
     @GET("rss/topfreeapplications/limit={limit}/json")
-    Observable<MobileAppFeed> getProfile(@Path("limit") int limit);
+    Observable<MobileAppFeed> getTopFreeApps(@Path("limit") int limit);
+
+    @GET("rss/topgrossingapplications/limit={limit}/json")
+    Observable<MobileAppFeed> getTopGrossApps(@Path("limit") int limit);
 }
