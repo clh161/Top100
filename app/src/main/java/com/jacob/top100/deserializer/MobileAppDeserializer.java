@@ -27,6 +27,7 @@ public class MobileAppDeserializer implements JsonDeserializer<MobileAppFeed> {
             JsonObject entry = entries.get(i).getAsJsonObject();
             mobileApp.setId(entry.getAsJsonObject("id").getAsJsonObject("attributes").get("im:id").getAsInt());
             mobileApp.setName(entry.getAsJsonObject("im:name").get("label").getAsString());
+            mobileApp.setCategory(entry.getAsJsonObject("category").getAsJsonObject("attributes").get("label").getAsString());
             for (int j = 0; entry.has("im:image") && j < entry.getAsJsonArray("im:image").size(); j++) {
                 JsonObject image = entry.getAsJsonArray("im:image").get(j).getAsJsonObject();
                 MobileAppImage mobileAppImage = new MobileAppImage();

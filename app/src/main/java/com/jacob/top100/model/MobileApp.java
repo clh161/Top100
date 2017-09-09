@@ -10,6 +10,7 @@ public class MobileApp {
     private int mId;
     private String mName;
     private List<MobileAppImage> mImages = new ArrayList<>();
+    private String category;
 
     public int getId() {
         return mId;
@@ -33,5 +34,13 @@ public class MobileApp {
 
     public void setImages(List<MobileAppImage> images) {
         mImages = images;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

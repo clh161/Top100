@@ -29,13 +29,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
-        android:layout_toEndOf="@id/icon">
+        android:layout_toEndOf="@id/icon"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
             style="@style/Text.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="TextView"/>
+            tools:text="App Name"/>
+
+        <TextView
+            android:id="@+id/category"
+            style="@style/Text.Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Category"/>
     </LinearLayout>
 </RelativeLayout>

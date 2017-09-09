@@ -18,6 +18,8 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
     TextView mRank;
     @BindView(R.id.name)
     TextView mName;
+    @BindView(R.id.category)
+    TextView mCategory;
     @BindView(R.id.icon)
     RoundedImageView mIcon;
 
@@ -28,6 +30,10 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getName() {
         return mName;
+    }
+
+    public TextView getCategory() {
+        return mCategory;
     }
 
     public RoundedImageView getIcon() {
