@@ -21,7 +21,7 @@ public class MobileApp {
     private String category;
     @SerializedName("averageUserRatingForCurrentVersion")
     @Expose
-    private Double mRating;
+    private Float mRating;
     @SerializedName("userRatingCountForCurrentVersion")
     @Expose
     private Integer mRatingCount;
@@ -58,11 +58,11 @@ public class MobileApp {
         this.category = category;
     }
 
-    public Double getRating() {
+    public Float getRating() {
         return mRating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(Float rating) {
         mRating = rating;
     }
 

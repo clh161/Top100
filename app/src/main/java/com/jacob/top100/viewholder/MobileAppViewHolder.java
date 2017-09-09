@@ -10,6 +10,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * @author Jacob Ho
@@ -24,6 +25,9 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
     TextView mCategory;
     @BindView(R.id.icon)
     RoundedImageView mIcon;
+    @Nullable
+    @BindView(R.id.rating_bar)
+    MaterialRatingBar mRatingBar;
 
     public MobileAppViewHolder(View itemView) {
         super(itemView);
@@ -44,6 +48,10 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getRank() {
         return mRank;
+    }
+
+    public MaterialRatingBar getRatingBar() {
+        return mRatingBar;
     }
 }
 
