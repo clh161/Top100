@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.jacob.top100.model.MobileApp;
 import com.jacob.top100.model.MobileAppFeed;
-import com.jacob.top100.model.MobileAppImage;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -28,12 +27,9 @@ public class MobileAppDeserializer implements JsonDeserializer<MobileAppFeed> {
             mobileApp.setId(entry.getAsJsonObject("id").getAsJsonObject("attributes").get("im:id").getAsInt());
             mobileApp.setName(entry.getAsJsonObject("im:name").get("label").getAsString());
             mobileApp.setCategory(entry.getAsJsonObject("category").getAsJsonObject("attributes").get("label").getAsString());
-            for (int j = 0; entry.has("im:image") && j < entry.getAsJsonArray("im:image").size(); j++) {
-                JsonObject image = entry.getAsJsonArray("im:image").get(j).getAsJsonObject();
-                MobileAppImage mobileAppImage = new MobileAppImage();
-                mobileAppImage.setHeight(image.get("attributes").getAsJsonObject().get("height").getAsInt());
-                mobileAppImage.setUrl(image.get("label").getAsString());
-                mobileApp.getImages().add(mobileAppImage);
+            if (entry.has("im:image")) {
+                JsonArray images = entry.getAsJsonArray("im:image");
+                mobileApp.setIcon(images.get(images.size() - 1).getAsJsonObject().get("label").getAsString());
             }
             mobileApps.add(mobileApp);
         }

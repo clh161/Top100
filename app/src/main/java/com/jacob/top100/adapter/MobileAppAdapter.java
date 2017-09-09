@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.jacob.top100.R;
 import com.jacob.top100.model.MobileApp;
-import com.jacob.top100.model.MobileAppImage;
 import com.jacob.top100.viewholder.MobileAppViewHolder;
 
 import java.util.ArrayList;
@@ -41,14 +40,13 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
             holder.getRank().setText(String.valueOf(position + 1));
         holder.getName().setText(mobileApp.getName());
         holder.getCategory().setText(mobileApp.getCategory());
-        List<MobileAppImage> images = mobileApp.getImages();
         if (isNaughtyLayout) {
             float iconRoundedRadius = holder.getIcon().getResources().getDimension(R.dimen.app_radius);
             float iconWidth = holder.getIcon().getResources().getDimension(R.dimen.app_height);
             holder.getIcon().setCornerRadius(position % 2 == 0 ? iconRoundedRadius : iconWidth / 2);
         }
-        if (!images.isEmpty())
-            Glide.with(holder.getIcon().getContext()).load(images.get(images.size() - 1).getUrl()).into(holder.getIcon());
+        if (mobileApp.getIcon() != null)
+            Glide.with(holder.getIcon().getContext()).load(mobileApp.getIcon()).into(holder.getIcon());
         else
             holder.getIcon().setImageResource(0);
     }
