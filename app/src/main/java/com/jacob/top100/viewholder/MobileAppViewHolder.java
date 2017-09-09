@@ -28,6 +28,9 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
     @Nullable
     @BindView(R.id.rating_bar)
     MaterialRatingBar mRatingBar;
+    @Nullable
+    @BindView(R.id.rating_count)
+    TextView mRatingCount;
 
     public MobileAppViewHolder(View itemView) {
         super(itemView);
@@ -52,6 +55,11 @@ public class MobileAppViewHolder extends RecyclerView.ViewHolder {
 
     public MaterialRatingBar getRatingBar() {
         return mRatingBar;
+    }
+
+    @Nullable
+    public TextView getRatingCount() {
+        return mRatingCount;
     }
 }
 
