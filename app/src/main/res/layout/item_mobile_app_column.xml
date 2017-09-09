@@ -9,8 +9,8 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/app_width"
-        android:layout_height="@dimen/app_height"
+        android:layout_width="@dimen/app_width_large"
+        android:layout_height="@dimen/app_height_large"
         android:contentDescription="@string/app_icon_description"
         app:riv_corner_radius="@dimen/app_radius"
         app:riv_mutate_background="true"/>
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/name"
-        style="@style/Text.Header"
+        style="@style/Text.Header.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="App Name"/>

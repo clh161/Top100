@@ -4,4 +4,6 @@
     <dimen name="app_width">72dp</dimen>
     <dimen name="app_height">72dp</dimen>
     <dimen name="app_radius">16dp</dimen>
+    <dimen name="app_width_large">108dp</dimen>
+    <dimen name="app_height_large">108dp</dimen>
 </resources>

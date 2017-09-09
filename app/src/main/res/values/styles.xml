@@ -25,4 +25,6 @@
 
     </style>
 
+    <style name="Text.Header.Small">18sp</style>
+
 </resources>
