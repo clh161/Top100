@@ -1,5 +1,6 @@
 package com.jacob.top100.viewholder;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
  * @author Jacob Ho
  */
 public class MobileAppViewHolder extends RecyclerView.ViewHolder {
+    @Nullable
     @BindView(R.id.rank)
     TextView mRank;
     @BindView(R.id.name)

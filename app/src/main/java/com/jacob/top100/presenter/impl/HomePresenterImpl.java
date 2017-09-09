@@ -28,7 +28,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         mInteractor.getTopFreeApps(mTopFreeAppLimit, new HttpResponse<List<MobileApp>>() {
             @Override
             public void onSuccess(List<MobileApp> apps) {
-                mView.setApps(apps);
+                mView.setTopFreeApps(apps);
+                mView.setTopGrossApps(apps);
             }
 
             @Override

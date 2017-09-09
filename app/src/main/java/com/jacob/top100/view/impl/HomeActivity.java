@@ -2,7 +2,6 @@ package com.jacob.top100.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.jacob.top100.R;
@@ -25,17 +24,20 @@ import butterknife.ButterKnife;
 public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> implements HomeView {
     @Inject
     PresenterFactory<HomePresenter> mPresenterFactory;
-    @BindView(R.id.list)
-    RecyclerView mList;
-    private MobileAppAdapter mAdapter = new MobileAppAdapter();
+    @BindView(R.id.top_gross_list)
+    RecyclerView mTopGrossList;
+    @BindView(R.id.top_free_list)
+    RecyclerView mTopFreeList;
+    private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
+    private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        mList.setLayoutManager(new LinearLayoutManager(this));
-        mList.setAdapter(mAdapter);
+        mTopFreeList.setAdapter(mTopFreeAdapter);
+        mTopGrossList.setAdapter(mTopGrossAdapter);
     }
 
     @Override
@@ -54,8 +56,14 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     }
 
     @Override
-    public void setApps(List<MobileApp> apps) {
-        mAdapter.setMobileApps(apps);
-        mAdapter.notifyDataSetChanged();
+    public void setTopFreeApps(List<MobileApp> apps) {
+        mTopFreeAdapter.setMobileApps(apps);
+        mTopFreeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setTopGrossApps(List<MobileApp> apps) {
+        mTopGrossAdapter.setMobileApps(apps);
+        mTopGrossAdapter.notifyDataSetChanged();
     }
 }

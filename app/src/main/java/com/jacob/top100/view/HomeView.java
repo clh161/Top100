@@ -9,7 +9,8 @@ import java.util.List;
 @UiThread
 public interface HomeView extends BaseView {
 
-    void setApps(List<MobileApp> apps);
+    void setTopFreeApps(List<MobileApp> apps);
 
 
+    void setTopGrossApps(List<MobileApp> apps);
 }

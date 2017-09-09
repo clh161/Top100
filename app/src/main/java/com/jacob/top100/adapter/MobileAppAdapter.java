@@ -1,5 +1,6 @@
 package com.jacob.top100.adapter;
 
+import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +21,23 @@ import java.util.List;
 public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> {
 
     private List<MobileApp> mMobileApps = new ArrayList<>();
+    private final int mItemLayout;
+
+    public MobileAppAdapter(@IdRes int itemLayout) {
+        mItemLayout = itemLayout;
+    }
 
     @Override
     public MobileAppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mobile_app, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(mItemLayout, parent, false);
         return new MobileAppViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MobileAppViewHolder holder, int position) {
         MobileApp mobileApp = mMobileApps.get(position);
-        holder.getRank().setText(String.valueOf(position + 1));
+        if (holder.getRank() != null)
+            holder.getRank().setText(String.valueOf(position + 1));
         holder.getName().setText(mobileApp.getName());
         holder.getCategory().setText(mobileApp.getCategory());
         List<MobileAppImage> images = mobileApp.getImages();
