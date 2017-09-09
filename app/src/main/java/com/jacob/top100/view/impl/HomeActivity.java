@@ -3,6 +3,8 @@ package com.jacob.top100.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.jacob.top100.R;
 import com.jacob.top100.adapter.MobileAppAdapter;
@@ -28,6 +30,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     RecyclerView mTopGrossList;
     @BindView(R.id.top_free_list)
     RecyclerView mTopFreeList;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
 
@@ -66,5 +70,10 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     public void setTopGrossApps(List<MobileApp> apps) {
         mTopGrossAdapter.setMobileApps(apps);
         mTopGrossAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setLoading(boolean isLoading) {
+        mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
     }
 }

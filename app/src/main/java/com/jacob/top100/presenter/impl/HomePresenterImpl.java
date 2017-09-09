@@ -15,6 +15,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     private final HomeInteractor mInteractor;
     private final int mTopFreeAppLimit = 100;
     private final int mTopGrossAppLimit = 10;
+    private boolean mIsLoading = false;
 
     @Inject
     public HomePresenterImpl(@NonNull HomeInteractor interactor) {
@@ -24,10 +25,17 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     @Override
     public void onStart(boolean viewCreated) {
         super.onStart(viewCreated);
+        setViewLoading(mIsLoading);
+        getApps();
+    }
+
+    private void getApps() {
+        setViewLoading(true);
         mInteractor.getApps(mTopFreeAppLimit, mTopGrossAppLimit, new HttpResponse<HomeInteractorImpl.Apps>() {
             @Override
             public void onSuccess(HomeInteractorImpl.Apps apps) {
                 if (mView != null) {
+                    setViewLoading(false);
                     mView.setTopFreeApps(apps.getFreeApps().getEntries());
                     mView.setTopGrossApps(apps.getGrossApps().getEntries());
                 }
@@ -35,11 +43,19 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
 
             @Override
             public void onFailure(Exception e) {
+                setViewLoading(false);
                 String message = e.getMessage();
                 if (message != null && mView != null)
                     mView.showToast(message);
             }
         });
+    }
+
+
+    private void setViewLoading(boolean isLoading) {
+        mIsLoading = isLoading;
+        if (mView != null)
+            mView.setLoading(isLoading);
     }
 
 }

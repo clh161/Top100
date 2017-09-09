@@ -12,4 +12,6 @@ public interface HomeView extends BaseView {
     void setTopFreeApps(List<MobileApp> apps);
 
     void setTopGrossApps(List<MobileApp> apps);
+
+    void setLoading(boolean isLoading);
 }

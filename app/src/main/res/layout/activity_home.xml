@@ -7,12 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".view.impl.HomeActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/top_gross_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/progress_bar"
         android:orientation="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_mobile_app_column"/>
