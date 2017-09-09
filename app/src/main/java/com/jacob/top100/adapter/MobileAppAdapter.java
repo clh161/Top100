@@ -22,6 +22,7 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
 
     private List<MobileApp> mMobileApps = new ArrayList<>();
     private final int mItemLayout;
+    private boolean isNaughtyLayout = true;
 
     public MobileAppAdapter(@LayoutRes int itemLayout) {
         mItemLayout = itemLayout;
@@ -41,9 +42,11 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
         holder.getName().setText(mobileApp.getName());
         holder.getCategory().setText(mobileApp.getCategory());
         List<MobileAppImage> images = mobileApp.getImages();
-        float iconRoundedRadius = holder.getIcon().getResources().getDimension(R.dimen.app_radius);
-        float iconWidth = holder.getIcon().getResources().getDimension(R.dimen.app_height);
-        holder.getIcon().setCornerRadius(position % 2 == 0 ? iconRoundedRadius : iconWidth / 2);
+        if (isNaughtyLayout) {
+            float iconRoundedRadius = holder.getIcon().getResources().getDimension(R.dimen.app_radius);
+            float iconWidth = holder.getIcon().getResources().getDimension(R.dimen.app_height);
+            holder.getIcon().setCornerRadius(position % 2 == 0 ? iconRoundedRadius : iconWidth / 2);
+        }
         if (!images.isEmpty())
             Glide.with(holder.getIcon().getContext()).load(images.get(images.size() - 1).getUrl()).into(holder.getIcon());
         else
@@ -53,6 +56,10 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
     @Override
     public int getItemCount() {
         return mMobileApps.size();
+    }
+
+    public void setNaughtyLayout(boolean naughtyLayout) {
+        isNaughtyLayout = naughtyLayout;
     }
 
     public void setMobileApps(List<MobileApp> mobileApps) {

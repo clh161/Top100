@@ -38,6 +38,7 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
         ButterKnife.bind(this);
         mTopFreeList.setAdapter(mTopFreeAdapter);
         mTopGrossList.setAdapter(mTopGrossAdapter);
+        mTopGrossAdapter.setNaughtyLayout(false);
     }
 
     @Override
