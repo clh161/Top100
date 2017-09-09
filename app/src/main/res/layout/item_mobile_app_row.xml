@@ -49,6 +49,9 @@
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:id="@+id/rating_bar"
+            app:mrb_progressTint="#FFFF00"
+            app:mrb_indeterminateTint="#FFFF00"
+            app:mrb_secondaryProgressTint="#FFFF00"
             style="@style/Widget.MaterialRatingBar.RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="16dp"/>
