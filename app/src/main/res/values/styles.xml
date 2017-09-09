@@ -16,7 +16,7 @@
 
     <style name="Text.Normal" parent="TextAppearance.AppCompat">
         <item name="android:alpha">0.65</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
 
     </style>
 
@@ -25,6 +25,8 @@
 
     </style>
 
-    <style name="Text.Header.Small">18sp</style>
+    <style name="Text.Header.Small" parent="Text.Header">
+        <item name="android:textSize">14sp</item>
+    </style>
 
 </resources>

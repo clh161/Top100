@@ -21,6 +21,7 @@
         style="@style/Text.Header.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lines="2"
         tools:text="App Name"/>
 
     <TextView
