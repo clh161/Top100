@@ -18,4 +18,8 @@ public interface HomeView extends BaseView {
     void setTopGrossListContainerTopMargin(int margin);
 
     float getTopGrossListContainerHeight();
+
+    void scrollGrossAppList(int index);
+
+    void scrollFreeAppList(int index);
 }

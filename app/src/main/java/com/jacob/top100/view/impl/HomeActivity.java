@@ -134,4 +134,14 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     public float getTopGrossListContainerHeight() {
         return mTopGrossListContainer.getHeight();
     }
+
+    @Override
+    public void scrollGrossAppList(int index) {
+        mTopGrossList.scrollToPosition(index);
+    }
+
+    @Override
+    public void scrollFreeAppList(int index) {
+        mTopFreeList.scrollToPosition(index);
+    }
 }

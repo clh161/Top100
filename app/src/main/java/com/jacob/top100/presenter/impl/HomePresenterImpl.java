@@ -137,6 +137,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         mQuery = query;
         mContainerMargin = 0;
         mView.setTopGrossListContainerTopMargin(0);
+        mView.scrollGrossAppList(0);
+        mView.scrollFreeAppList(0);
         if (query.isEmpty()) {
             mView.setTopFreeApps(mTopFreeApps);
             mView.setTopGrossApps(mTopGrossApps);
