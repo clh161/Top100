@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_view"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_margin="@dimen/margin_small"
         android:text="@string/header_recommendations"/>
 
     <android.support.v7.widget.RecyclerView
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_marginStart="@dimen/margin_small"
+        android:layout_margin="@dimen/margin_small"
         android:text="@string/header_recommendations"
         android:visibility="gone"/>
 
