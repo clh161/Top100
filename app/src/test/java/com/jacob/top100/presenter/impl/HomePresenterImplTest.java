@@ -40,21 +40,34 @@ public class HomePresenterImplTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mFreeApps.clear();
         mGrossApps.clear();
         for (int i = 0; i < LIST_LOAD_MORE_THRESHOLD; i++) {
-            MobileApp freeApp = new MobileApp(i + 1, "Free App No." + i, "http://www.website.com/free-app-icon-" + i, mCategories[i % mCategories.length], (float) ((i % 5) + 1), i + 1);
-            mFreeApps.add(freeApp);
+
             MobileApp grossApp = new MobileApp(i + 1, "Gross App No." + i, "http://www.website.com/gross-app-icon-" + i, mCategories[i % mCategories.length], null, null);
             mGrossApps.add(grossApp);
         }
         doAnswer(invocation -> {
-            ((HttpResponse<List<MobileApp>>) invocation.getArgument(1)).onSuccess(mFreeApps);
+            mFreeApps.clear();
+            int limit = invocation.getArgument(0);
+            HttpResponse<List<MobileApp>> response = invocation.getArgument(1);
+            for (int i = 0; i < limit; i++) {
+                MobileApp app = new MobileApp(i + 1, "Free App No." + i, "http://www.website.com/free-app-icon-" + i, mCategories[i % mCategories.length], (float) ((i % 5) + 1), i + 1);
+                mFreeApps.add(app);
+            }
+            response.onSuccess(mFreeApps);
+
             return null;
         }).when(mInteractor).getFreeApps(anyInt(), any(HttpResponse.class));
 
         doAnswer(invocation -> {
-            ((HttpResponse<List<MobileApp>>) invocation.getArgument(1)).onSuccess(mGrossApps);
+            mGrossApps.clear();
+            int limit = invocation.getArgument(0);
+            HttpResponse<List<MobileApp>> response = invocation.getArgument(1);
+            for (int i = 0; i < limit; i++) {
+                MobileApp app = new MobileApp(i + 1, "Gross App No." + i, "http://www.website.com/free-app-icon-" + i, mCategories[i % mCategories.length], null, null);
+                mGrossApps.add(app);
+            }
+            response.onSuccess(mGrossApps);
             return null;
         }).when(mInteractor).getGrossApps(anyInt(), any(HttpResponse.class));
         mPresenter = new HomePresenterImpl(mInteractor);
@@ -100,4 +113,11 @@ public class HomePresenterImplTest {
         verify(mView).setTopFreeApps(eq(mFreeApps));
     }
 
+    @Test
+    public void scrollListsToTopOnSearch() throws Exception {
+        reset(mView);
+        mPresenter.onQueryTextChange("SOME_QUERY");
+        verify(mView).scrollFreeAppList(0);
+        verify(mView).scrollGrossAppList(0);
+    }
 }
