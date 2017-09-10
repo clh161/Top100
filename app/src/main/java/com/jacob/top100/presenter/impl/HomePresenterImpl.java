@@ -16,9 +16,9 @@ import javax.inject.Inject;
 public final class HomePresenterImpl extends BasePresenterImpl<HomeView> implements HomePresenter {
     @NonNull
     private final HomeInteractor mInteractor;
-    private final int mTopFreeAppLimit = 100;
-    private final int mTopGrossAppLimit = 10;
-    private final int mListLoadMoreThreshold = 10;
+    public static final int TOP_FREE_APP_LIMIT = 100;
+    public static final int TOP_GROSS_APP_LIMIT = 10;
+    public static final int LIST_LOAD_MORE_THRESHOLD = 10;
     private boolean mIsLoading = false;
     private List<MobileApp> mTopFreeApps = new ArrayList<>();
     private List<MobileApp> mTopGrossApps = new ArrayList<>();
@@ -39,8 +39,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         setViewLoading(mIsLoading);
         mView.setTopFreeApps(filter(mQuery, mTopFreeApps));
         mView.setTopGrossApps(filter(mQuery, mTopGrossApps));
-        getFreeApps(mListLoadMoreThreshold);
-        getGrossApps(mTopGrossAppLimit);
+        getFreeApps(LIST_LOAD_MORE_THRESHOLD);
+        getGrossApps(TOP_GROSS_APP_LIMIT);
     }
 
     private void getFreeApps(int limit) {
@@ -52,8 +52,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
                     setViewLoading(false);
                     mView.setTopFreeApps(filter(mQuery, apps));
                     mTopFreeApps = apps;
-                    if (mTopFreeApps.size() < mTopFreeAppLimit && filter(mQuery, apps).size() < mListLoadMoreThreshold)
-                        getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
+                    if (mTopFreeApps.size() < TOP_FREE_APP_LIMIT && filter(mQuery, apps).size() < LIST_LOAD_MORE_THRESHOLD)
+                        getFreeApps(mTopFreeApps.size() + LIST_LOAD_MORE_THRESHOLD);
                 }
             }
 
@@ -76,8 +76,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
                     setViewLoading(false);
                     mTopGrossApps = apps;
                     mView.setTopGrossApps(apps);
-                    if (mTopGrossApps.size() < mTopGrossAppLimit && filter(mQuery, apps).size() < mListLoadMoreThreshold)
-                        getGrossApps(mTopGrossApps.size() + mListLoadMoreThreshold);
+                    if (mTopGrossApps.size() < TOP_GROSS_APP_LIMIT && filter(mQuery, apps).size() < LIST_LOAD_MORE_THRESHOLD)
+                        getGrossApps(mTopGrossApps.size() + LIST_LOAD_MORE_THRESHOLD);
                 }
             }
 
@@ -125,9 +125,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         if (originalContainerMargin != mContainerMargin) {
             mView.setTopGrossListContainerTopMargin((int) (-mContainerMargin * mGrossListScrollScale));
         }
-        if (mTopFreeApps.size() < mTopFreeAppLimit)
+        if (mTopFreeApps.size() < TOP_FREE_APP_LIMIT)
             if (!mIsLoading && totalItemCount - 1 == lastVisibleItem) {
-                getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
+                getFreeApps(mTopFreeApps.size() + LIST_LOAD_MORE_THRESHOLD);
             }
     }
 
@@ -145,13 +145,13 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         } else {
             List<MobileApp> filteredApps = filter(query, mTopFreeApps);
             mView.setTopFreeApps(filteredApps);
-            if (!mIsLoading && mTopFreeApps.size() < mTopFreeAppLimit && filteredApps.size() < mListLoadMoreThreshold)
-                getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
+            if (!mIsLoading && mTopFreeApps.size() < TOP_FREE_APP_LIMIT && filteredApps.size() < LIST_LOAD_MORE_THRESHOLD)
+                getFreeApps(mTopFreeApps.size() + LIST_LOAD_MORE_THRESHOLD);
 
             List<MobileApp> filteredGrossApps = filter(query, mTopGrossApps);
             mView.setTopGrossApps(filteredGrossApps);
-            if (!mIsLoading && mTopGrossApps.size() < mTopGrossAppLimit && filteredGrossApps.size() < mListLoadMoreThreshold)
-                getGrossApps(mTopGrossApps.size() + mListLoadMoreThreshold);
+            if (!mIsLoading && mTopGrossApps.size() < TOP_GROSS_APP_LIMIT && filteredGrossApps.size() < LIST_LOAD_MORE_THRESHOLD)
+                getGrossApps(mTopGrossApps.size() + LIST_LOAD_MORE_THRESHOLD);
         }
     }
 }

@@ -18,13 +18,25 @@ public class MobileApp {
     private String mIcon;
     @SerializedName("primaryGenreName")
     @Expose
-    private String category;
+    private String mCategory;
     @SerializedName("averageUserRatingForCurrentVersion")
     @Expose
     private Float mRating;
     @SerializedName("userRatingCountForCurrentVersion")
     @Expose
     private Integer mRatingCount;
+
+    public MobileApp() {
+    }
+
+    public MobileApp(int id, String name, String icon, String category, Float rating, Integer ratingCount) {
+        mId = id;
+        mName = name;
+        mIcon = icon;
+        mCategory = category;
+        mRating = rating;
+        mRatingCount = ratingCount;
+    }
 
     public int getId() {
         return mId;
@@ -51,11 +63,11 @@ public class MobileApp {
     }
 
     public String getCategory() {
-        return category;
+        return mCategory;
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.mCategory = category;
     }
 
     public Float getRating() {
