@@ -98,4 +98,14 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
                 getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
             }
     }
+
+    @Override
+    public void onQueryTextChange(String query) {
+        if (query.isEmpty()) {
+            mView.showQueryText(false);
+        } else {
+            mView.showQueryText(true);
+            mView.setQueryText(query);
+        }
+    }
 }

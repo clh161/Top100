@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.jacob.top100.R;
 import com.jacob.top100.adapter.MobileAppAdapter;
@@ -37,6 +38,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     ProgressBar mProgressBar;
     @BindView(R.id.search_view)
     SearchView mSearchView;
+    @BindView(R.id.query_text)
+    TextView mQueryText;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
@@ -65,6 +68,18 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
         });
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, mTopFreeListLayoutManager.getOrientation());
         mTopFreeList.addItemDecoration(dividerItemDecoration);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                mPresenter.onQueryTextChange(query);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -97,5 +112,15 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     @Override
     public void setLoading(boolean isLoading) {
         mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void setQueryText(String query) {
+        mQueryText.setText(String.format(getString(R.string.query_text), query));
+    }
+
+    @Override
+    public void showQueryText(boolean show) {
+        mQueryText.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

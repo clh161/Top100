@@ -14,4 +14,8 @@ public interface HomeView extends BaseView {
     void setTopGrossApps(List<MobileApp> apps);
 
     void setLoading(boolean isLoading);
+
+    void setQueryText(String query);
+
+    void showQueryText(boolean show);
 }

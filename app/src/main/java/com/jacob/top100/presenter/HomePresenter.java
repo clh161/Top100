@@ -5,4 +5,6 @@ import com.jacob.top100.view.HomeView;
 public interface HomePresenter extends BasePresenter<HomeView> {
 
     void onListScroll(int totalItemCount, int lastVisibleItem);
+
+    void onQueryTextChange(String query);
 }

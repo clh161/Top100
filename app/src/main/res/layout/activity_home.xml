@@ -38,12 +38,22 @@
         android:layout_below="@id/top_gross_list"
         android:background="?android:attr/dividerVertical"/>
 
+    <TextView
+        android:id="@+id/query_text"
+        style="@style/Text.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginStart="@dimen/margin_small"
+        android:text="@string/header_recommendations"
+        android:visibility="gone"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/top_free_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/progress_bar"
-        android:layout_below="@id/divider"
+        android:layout_below="@id/query_text"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_mobile_app_row"/>
 
