@@ -7,11 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".view.impl.HomeActivity">
 
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+
     <TextView
         android:id="@+id/header_recommendations"
         style="@style/Text.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/search_view"
         android:layout_marginStart="@dimen/margin_small"
         android:text="@string/header_recommendations"/>
 
