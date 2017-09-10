@@ -7,11 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".view.impl.HomeActivity">
 
+    <TextView
+        android:id="@+id/header_recommendations"
+        style="@style/Text.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:text="@string/header_recommendations"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/top_gross_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/header_recommendations"
         android:orientation="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_mobile_app_column"/>
