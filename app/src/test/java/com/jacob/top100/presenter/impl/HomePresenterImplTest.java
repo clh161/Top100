@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -69,6 +70,12 @@ public class HomePresenterImplTest {
     public void fetchGrossAppsOnInit() throws Exception {
         verify(mInteractor).getGrossApps(eq(TOP_GROSS_APP_LIMIT), any(HttpResponse.class));
         verify(mView).setTopGrossApps(eq(mGrossApps));
+    }
+
+    @Test
+    public void loadingTest() throws Exception {
+        verify(mView, times(2)).setLoading(eq(true));
+        verify(mView, times(3)).setLoading(eq(false));
     }
 
 }
