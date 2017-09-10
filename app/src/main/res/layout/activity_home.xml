@@ -57,6 +57,17 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_mobile_app_row"/>
 
+    <TextView
+        android:id="@+id/header_no_results"
+        style="@style/Text.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/top_free_list"
+        android:layout_marginTop="48dp"
+        android:text="@string/header_no_results"
+        android:textAlignment="center"
+        android:visibility="gone"/>
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"

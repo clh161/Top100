@@ -40,6 +40,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     SearchView mSearchView;
     @BindView(R.id.query_text)
     TextView mQueryText;
+    @BindView(R.id.header_no_results)
+    TextView mNoResult;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
@@ -101,6 +103,10 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     public void setTopFreeApps(List<MobileApp> apps) {
         mTopFreeAdapter.setMobileApps(apps);
         mTopFreeAdapter.notifyDataSetChanged();
+        if (apps.isEmpty())
+            mNoResult.setVisibility(View.VISIBLE);
+        else
+            mNoResult.setVisibility(View.GONE);
     }
 
     @Override
@@ -111,6 +117,7 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
 
     @Override
     public void setLoading(boolean isLoading) {
+        mNoResult.setVisibility(View.GONE);
         mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
     }
 
