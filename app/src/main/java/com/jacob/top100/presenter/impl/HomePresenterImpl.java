@@ -133,6 +133,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     public void onQueryTextChange(String query) {
         assert mView != null;
         mQuery = query;
+        mContainerMargin = 0;
+        mView.setTopGrossListContainerTopMargin(0);
         if (query.isEmpty()) {
             mView.showQueryText(false);
             mView.setTopFreeApps(mTopFreeApps);
