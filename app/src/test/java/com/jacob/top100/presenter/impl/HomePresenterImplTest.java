@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.jacob.top100.presenter.impl.HomePresenterImpl.LIST_LOAD_MORE_THRESHOLD;
+import static com.jacob.top100.presenter.impl.HomePresenterImpl.TOP_FREE_APP_LIMIT;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -70,7 +72,7 @@ public class HomePresenterImplTest {
             response.onSuccess(mGrossApps);
             return null;
         }).when(mInteractor).getGrossApps(anyInt(), any(HttpResponse.class));
-        mPresenter = new HomePresenterImpl(mInteractor);
+        mPresenter = spy(new HomePresenterImpl(mInteractor));
         mPresenter.onViewAttached(mView);
         mPresenter.onStart(true);
     }
@@ -119,5 +121,17 @@ public class HomePresenterImplTest {
         mPresenter.onQueryTextChange("SOME_QUERY");
         verify(mView).scrollFreeAppList(0);
         verify(mView).scrollGrossAppList(0);
+    }
+
+    /**
+     * Query may shorten the apps list, if the list size is too small, fetch more apps
+     */
+    @Test
+    public void loadMoreAppsOnQuery() throws Exception {
+        mPresenter.onQueryTextChange("NO_RESULTS_FOR_THIS_STRING");
+        for (int i = 0; i < TOP_FREE_APP_LIMIT / LIST_LOAD_MORE_THRESHOLD; i++) {
+            verify(mPresenter).getFreeApps((i + 1) * LIST_LOAD_MORE_THRESHOLD);
+        }
+        verify(mPresenter, times(TOP_FREE_APP_LIMIT / LIST_LOAD_MORE_THRESHOLD)).getFreeApps(anyInt());
     }
 }

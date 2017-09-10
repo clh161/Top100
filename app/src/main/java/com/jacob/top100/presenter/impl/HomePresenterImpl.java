@@ -1,6 +1,7 @@
 package com.jacob.top100.presenter.impl;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import com.jacob.top100.interactor.HomeInteractor;
 import com.jacob.top100.model.HttpResponse;
@@ -43,7 +44,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         getGrossApps(TOP_GROSS_APP_LIMIT);
     }
 
-    private void getFreeApps(int limit) {
+    @VisibleForTesting
+    public void getFreeApps(int limit) {
         setViewLoading(true);
         mInteractor.getFreeApps(limit, new HttpResponse<List<MobileApp>>() {
             @Override
