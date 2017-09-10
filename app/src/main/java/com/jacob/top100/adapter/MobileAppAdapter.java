@@ -40,10 +40,18 @@ public class MobileAppAdapter extends RecyclerView.Adapter<MobileAppViewHolder> 
             holder.getRank().setText(String.valueOf(position + 1));
         holder.getName().setText(mobileApp.getName());
         holder.getCategory().setText(mobileApp.getCategory());
-        if (holder.getRatingBar() != null && mobileApp.getRating() != null)
-            holder.getRatingBar().setRating(mobileApp.getRating());
-        if (holder.getRatingCount() != null && mobileApp.getRatingCount() != null)
-            holder.getRatingCount().setText(String.format("(%d)", mobileApp.getRatingCount()));
+        if (holder.getRatingBar() != null)
+            if (mobileApp.getRating() != null) {
+                holder.getRatingBar().setVisibility(View.VISIBLE);
+                holder.getRatingBar().setRating(mobileApp.getRating());
+            } else
+                holder.getRatingBar().setVisibility(View.INVISIBLE);
+        if (holder.getRatingCount() != null)
+            if (mobileApp.getRatingCount() != null) {
+                holder.getRatingCount().setVisibility(View.VISIBLE);
+                holder.getRatingCount().setText(String.format("(%d)", mobileApp.getRatingCount()));
+            } else
+                holder.getRatingCount().setVisibility(View.INVISIBLE);
         if (isNaughtyLayout) {
             float iconRoundedRadius = holder.getIcon().getResources().getDimension(R.dimen.app_radius);
             float iconWidth = holder.getIcon().getResources().getDimension(R.dimen.app_height);
