@@ -38,7 +38,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         assert mView != null;
         setViewLoading(mIsLoading);
         mView.setTopFreeApps(filter(mQuery, mTopFreeApps));
-        mView.setTopGrossApps(mTopGrossApps);
+        mView.setTopGrossApps(filter(mQuery, mTopGrossApps));
         getFreeApps(mListLoadMoreThreshold);
         getGrossApps(mTopGrossAppLimit);
     }
@@ -76,6 +76,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
                     setViewLoading(false);
                     mTopGrossApps = apps;
                     mView.setTopGrossApps(apps);
+                    if (mTopGrossApps.size() < mTopGrossAppLimit && filter(mQuery, apps).size() < mListLoadMoreThreshold)
+                        getGrossApps(mTopGrossApps.size() + mListLoadMoreThreshold);
                 }
             }
 
@@ -138,6 +140,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         if (query.isEmpty()) {
             mView.showQueryText(false);
             mView.setTopFreeApps(mTopFreeApps);
+            mView.setTopGrossApps(mTopGrossApps);
         } else {
             mView.showQueryText(true);
             mView.setQueryText(query);
@@ -145,6 +148,11 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
             mView.setTopFreeApps(filteredApps);
             if (!mIsLoading && mTopFreeApps.size() < mTopFreeAppLimit && filteredApps.size() < mListLoadMoreThreshold)
                 getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
+
+            List<MobileApp> filteredGrossApps = filter(query, mTopGrossApps);
+            mView.setTopGrossApps(filteredGrossApps);
+            if (!mIsLoading && mTopGrossApps.size() < mTopGrossAppLimit && filteredGrossApps.size() < mListLoadMoreThreshold)
+                getGrossApps(mTopGrossApps.size() + mListLoadMoreThreshold);
         }
     }
 }
