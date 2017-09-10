@@ -56,12 +56,21 @@
         android:text="@string/header_recommendations"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/header_free_apps"
+        style="@style/Text.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/query_text"
+        android:layout_margin="@dimen/margin_small"
+        android:text="@string/header_free_apps"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/top_free_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/progress_bar"
-        android:layout_below="@id/query_text"
+        android:layout_below="@id/header_free_apps"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_mobile_app_row"/>
 

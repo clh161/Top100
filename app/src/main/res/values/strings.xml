@@ -5,4 +5,5 @@
     <string name="header_top_free_apps">Top free apps</string>
     <string name="query_text">Searching for\"%s\"…</string>
     <string name="header_no_results">No results</string>
+    <string name="header_free_apps">Free apps</string>
 </resources>
