@@ -40,8 +40,6 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     ProgressBar mProgressBar;
     @BindView(R.id.search_view)
     SearchView mSearchView;
-    @BindView(R.id.query_text)
-    TextView mQueryText;
     @BindView(R.id.header_no_results)
     TextView mNoResult;
     @BindView(R.id.top_gross_list_container)
@@ -123,16 +121,6 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     public void setLoading(boolean isLoading) {
         mNoResult.setVisibility(View.GONE);
         mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    @Override
-    public void setQueryText(String query) {
-        mQueryText.setText(String.format(getString(R.string.query_text), query));
-    }
-
-    @Override
-    public void showQueryText(boolean show) {
-        mQueryText.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

@@ -15,10 +15,6 @@ public interface HomeView extends BaseView {
 
     void setLoading(boolean isLoading);
 
-    void setQueryText(String query);
-
-    void showQueryText(boolean show);
-
     void setTopGrossListContainerTopMargin(int margin);
 
     float getTopGrossListContainerHeight();

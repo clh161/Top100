@@ -138,12 +138,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         mContainerMargin = 0;
         mView.setTopGrossListContainerTopMargin(0);
         if (query.isEmpty()) {
-            mView.showQueryText(false);
             mView.setTopFreeApps(mTopFreeApps);
             mView.setTopGrossApps(mTopGrossApps);
         } else {
-            mView.showQueryText(true);
-            mView.setQueryText(query);
             List<MobileApp> filteredApps = filter(query, mTopFreeApps);
             mView.setTopFreeApps(filteredApps);
             if (!mIsLoading && mTopFreeApps.size() < mTopFreeAppLimit && filteredApps.size() < mListLoadMoreThreshold)
