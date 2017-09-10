@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import com.jacob.top100.R;
 import com.jacob.top100.adapter.MobileAppAdapter;
@@ -34,6 +35,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     RecyclerView mTopFreeList;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+    @BindView(R.id.search_view)
+    SearchView mSearchView;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
@@ -49,6 +52,7 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
         mTopFreeList.setAdapter(mTopFreeAdapter);
         mTopGrossList.setAdapter(mTopGrossAdapter);
         mTopGrossAdapter.setNaughtyLayout(false);
+        mSearchView.setOnClickListener(searchBar -> ((SearchView) searchBar).setIconified(false));
         mTopFreeList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView,
