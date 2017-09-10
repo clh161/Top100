@@ -125,6 +125,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         mQuery = query;
         if (query.isEmpty()) {
             mView.showQueryText(false);
+            mView.setTopFreeApps(mTopFreeApps);
         } else {
             mView.showQueryText(true);
             mView.setQueryText(query);
