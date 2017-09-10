@@ -8,7 +8,7 @@
     tools:context=".view.impl.HomeActivity">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/top_gross_list_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,10 +27,22 @@
             android:id="@+id/top_gross_list"
             android:layout_width="match_parent"
             android:layout_height="184dp"
+            android:layout_below="@id/header_recommendations"
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_mobile_app_column"/>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/header_gross_app_no_results"
+            style="@style/Text.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/top_gross_list"
+            android:layout_marginTop="48dp"
+            android:text="@string/header_no_results"
+            android:textAlignment="center"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <SearchView
         android:id="@id/search_view"
@@ -65,7 +77,7 @@
         tools:listitem="@layout/item_mobile_app_row"/>
 
     <TextView
-        android:id="@+id/header_no_results"
+        android:id="@+id/header_free_app_no_results"
         style="@style/Text.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

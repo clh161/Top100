@@ -6,7 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -40,10 +39,12 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     ProgressBar mProgressBar;
     @BindView(R.id.search_view)
     SearchView mSearchView;
-    @BindView(R.id.header_no_results)
-    TextView mNoResult;
+    @BindView(R.id.header_free_app_no_results)
+    TextView mFreeAppNoResult;
+    @BindView(R.id.header_gross_app_no_results)
+    TextView mGrossAppNoResult;
     @BindView(R.id.top_gross_list_container)
-    LinearLayout mTopGrossListContainer;
+    RelativeLayout mTopGrossListContainer;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
@@ -106,20 +107,24 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
         mTopFreeAdapter.setMobileApps(apps);
         mTopFreeAdapter.notifyDataSetChanged();
         if (apps.isEmpty())
-            mNoResult.setVisibility(View.VISIBLE);
+            mFreeAppNoResult.setVisibility(View.VISIBLE);
         else
-            mNoResult.setVisibility(View.GONE);
+            mFreeAppNoResult.setVisibility(View.GONE);
     }
 
     @Override
     public void setTopGrossApps(List<MobileApp> apps) {
         mTopGrossAdapter.setMobileApps(apps);
         mTopGrossAdapter.notifyDataSetChanged();
+        if (apps.isEmpty())
+            mGrossAppNoResult.setVisibility(View.VISIBLE);
+        else
+            mGrossAppNoResult.setVisibility(View.GONE);
     }
 
     @Override
     public void setLoading(boolean isLoading) {
-        mNoResult.setVisibility(View.GONE);
+        mFreeAppNoResult.setVisibility(View.GONE);
         mProgressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
     }
 
