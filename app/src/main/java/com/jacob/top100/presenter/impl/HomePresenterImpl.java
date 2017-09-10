@@ -49,6 +49,8 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
                     setViewLoading(false);
                     mView.setTopFreeApps(filter(mQuery, apps));
                     mTopFreeApps = apps;
+                    if (mTopFreeApps.size() < mTopFreeAppLimit && filter(mQuery, apps).size() < mListLoadMoreThreshold)
+                        getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
                 }
             }
 
@@ -113,7 +115,6 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     public void onListScroll(int totalItemCount, int lastVisibleItem) {
         if (mTopFreeApps.size() < mTopFreeAppLimit)
             if (!mIsLoading && totalItemCount - 1 == lastVisibleItem) {
-                setViewLoading(true);
                 getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
             }
     }
@@ -127,7 +128,10 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         } else {
             mView.showQueryText(true);
             mView.setQueryText(query);
-            mView.setTopFreeApps(filter(query, mTopFreeApps));
+            List<MobileApp> filteredApps = filter(query, mTopFreeApps);
+            mView.setTopFreeApps(filteredApps);
+            if (!mIsLoading && mTopFreeApps.size() < mTopFreeAppLimit && filteredApps.size() < mListLoadMoreThreshold)
+                getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);
         }
     }
 }
