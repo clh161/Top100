@@ -49,7 +49,6 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
-    private int mContainerMargin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +67,9 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
             public void onScrolled(RecyclerView recyclerView,
                                    int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int originalContainerMargin = mContainerMargin;
-                float scrollScale = 0.8f;
-                mContainerMargin = mContainerMargin + dy;
-                mContainerMargin = (int) Math.min(mContainerMargin, mTopGrossListContainer.getHeight() / scrollScale);
-                mContainerMargin = Math.max(mContainerMargin, 0);
-                if (originalContainerMargin != mContainerMargin) {
-                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTopGrossListContainer.getLayoutParams();
-                    layoutParams.setMargins(layoutParams.leftMargin, (int) (-mContainerMargin * scrollScale), layoutParams.rightMargin, layoutParams.bottomMargin);
-                    mTopGrossListContainer.requestLayout();
-                }
                 int totalItemCount = mTopFreeListLayoutManager.getItemCount();
                 int lastVisibleItem = mTopFreeListLayoutManager.findLastVisibleItemPosition();
-                mPresenter.onListScroll(totalItemCount, lastVisibleItem);
+                mPresenter.onListScroll(dy, totalItemCount, lastVisibleItem);
             }
         });
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, mTopFreeListLayoutManager.getOrientation());
@@ -144,5 +133,17 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     @Override
     public void showQueryText(boolean show) {
         mQueryText.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setTopGrossListContainerTopMargin(int margin) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTopGrossListContainer.getLayoutParams();
+        layoutParams.setMargins(layoutParams.leftMargin, margin, layoutParams.rightMargin, layoutParams.bottomMargin);
+        mTopGrossListContainer.requestLayout();
+    }
+
+    @Override
+    public float getTopGrossListContainerHeight() {
+        return mTopGrossListContainer.getHeight();
     }
 }

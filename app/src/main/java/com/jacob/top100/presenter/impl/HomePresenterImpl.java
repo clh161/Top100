@@ -23,6 +23,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     private List<MobileApp> mTopFreeApps = new ArrayList<>();
     private List<MobileApp> mTopGrossApps = new ArrayList<>();
     private String mQuery;
+    private final float mGrossListScrollScale = 0.8f;
+    private int mContainerMargin = 0;
+
 
     @Inject
     public HomePresenterImpl(@NonNull HomeInteractor interactor) {
@@ -112,7 +115,14 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     }
 
     @Override
-    public void onListScroll(int totalItemCount, int lastVisibleItem) {
+    public void onListScroll(int dy, int totalItemCount, int lastVisibleItem) {
+        int originalContainerMargin = mContainerMargin;
+        mContainerMargin = mContainerMargin + dy;
+        mContainerMargin = (int) Math.min(mContainerMargin, mView.getTopGrossListContainerHeight() / mGrossListScrollScale);
+        mContainerMargin = Math.max(mContainerMargin, 0);
+        if (originalContainerMargin != mContainerMargin) {
+            mView.setTopGrossListContainerTopMargin((int) (-mContainerMargin * mGrossListScrollScale));
+        }
         if (mTopFreeApps.size() < mTopFreeAppLimit)
             if (!mIsLoading && totalItemCount - 1 == lastVisibleItem) {
                 getFreeApps(mTopFreeApps.size() + mListLoadMoreThreshold);

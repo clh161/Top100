@@ -18,4 +18,8 @@ public interface HomeView extends BaseView {
     void setQueryText(String query);
 
     void showQueryText(boolean show);
+
+    void setTopGrossListContainerTopMargin(int margin);
+
+    float getTopGrossListContainerHeight();
 }
