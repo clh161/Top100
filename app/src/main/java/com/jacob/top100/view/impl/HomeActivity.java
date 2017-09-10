@@ -2,6 +2,7 @@ package com.jacob.top100.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -58,6 +59,8 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
                 mPresenter.onListScroll(totalItemCount, lastVisibleItem);
             }
         });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, mTopFreeListLayoutManager.getOrientation());
+        mTopFreeList.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
