@@ -6,7 +6,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -42,9 +44,12 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
     TextView mQueryText;
     @BindView(R.id.header_no_results)
     TextView mNoResult;
+    @BindView(R.id.top_gross_list_container)
+    LinearLayout mTopGrossListContainer;
     private MobileAppAdapter mTopFreeAdapter = new MobileAppAdapter(R.layout.item_mobile_app_row);
     private MobileAppAdapter mTopGrossAdapter = new MobileAppAdapter(R.layout.item_mobile_app_column);
     private LinearLayoutManager mTopFreeListLayoutManager;
+    private int mContainerMargin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,16 @@ public final class HomeActivity extends BaseActivity<HomePresenter, HomeView> im
             public void onScrolled(RecyclerView recyclerView,
                                    int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                int originalContainerMargin = mContainerMargin;
+                float scrollScale = 0.8f;
+                mContainerMargin = mContainerMargin + dy;
+                mContainerMargin = (int) Math.min(mContainerMargin, mTopGrossListContainer.getHeight() / scrollScale);
+                mContainerMargin = Math.max(mContainerMargin, 0);
+                if (originalContainerMargin != mContainerMargin) {
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTopGrossListContainer.getLayoutParams();
+                    layoutParams.setMargins(layoutParams.leftMargin, (int) (-mContainerMargin * scrollScale), layoutParams.rightMargin, layoutParams.bottomMargin);
+                    mTopGrossListContainer.requestLayout();
+                }
                 int totalItemCount = mTopFreeListLayoutManager.getItemCount();
                 int lastVisibleItem = mTopFreeListLayoutManager.findLastVisibleItemPosition();
                 mPresenter.onListScroll(totalItemCount, lastVisibleItem);

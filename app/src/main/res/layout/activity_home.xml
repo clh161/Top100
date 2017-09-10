@@ -7,35 +7,43 @@
     android:layout_height="match_parent"
     tools:context=".view.impl.HomeActivity">
 
+
+    <LinearLayout
+        android:id="@+id/top_gross_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_view"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header_recommendations"
+            style="@style/Text.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:text="@string/header_recommendations"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/top_gross_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_mobile_app_column"/>
+    </LinearLayout>
+
     <SearchView
-        android:id="@+id/search_view"
+        android:id="@id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"/>
-
-    <TextView
-        android:id="@+id/header_recommendations"
-        style="@style/Text.Header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_view"
-        android:layout_margin="@dimen/margin_small"
-        android:text="@string/header_recommendations"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/top_gross_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header_recommendations"
-        android:orientation="horizontal"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_mobile_app_column"/>
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"/>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/top_gross_list"
+        android:layout_below="@id/top_gross_list_container"
         android:background="?android:attr/dividerVertical"/>
 
     <TextView
