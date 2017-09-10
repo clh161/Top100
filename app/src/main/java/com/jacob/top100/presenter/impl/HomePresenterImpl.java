@@ -34,7 +34,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         super.onStart(viewCreated);
         assert mView != null;
         setViewLoading(mIsLoading);
-        filterAndSetTopFreeApps(mQuery, mTopFreeApps);
+        mView.setTopFreeApps(filter(mQuery, mTopFreeApps));
         mView.setTopGrossApps(mTopGrossApps);
         getFreeApps(mListLoadMoreThreshold);
         getGrossApps(mTopGrossAppLimit);
@@ -47,7 +47,7 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
             public void onSuccess(List<MobileApp> apps) {
                 if (mView != null) {
                     setViewLoading(false);
-                    filterAndSetTopFreeApps(mQuery, apps);
+                    mView.setTopFreeApps(filter(mQuery, apps));
                     mTopFreeApps = apps;
                 }
             }
@@ -84,28 +84,24 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         });
     }
 
-    private void filterAndSetTopFreeApps(String query, List<MobileApp> apps) {
-        List<MobileApp> filteredApps = new ArrayList<>();
-        filteredApps.addAll(apps);
-        if (mView != null) {
-            if (query == null || query.isEmpty())
-                mView.setTopFreeApps(filteredApps);
-            else {
-                for (String q : query.split(" ")) {
-                    for (int i = 0; i < filteredApps.size(); i++) {
-                        MobileApp app = filteredApps.get(i);
-                        if (app.getName() != null && !app.getName().toLowerCase().contains(q.toLowerCase())) {
-                            filteredApps.remove(i);
-                            i--;
-                        }
+    private List<MobileApp> filter(String query, List<MobileApp> apps) {
+        if (query == null || query.isEmpty())
+            return apps;
+        else {
+            List<MobileApp> filteredApps = new ArrayList<>();
+            filteredApps.addAll(apps);
+            for (String q : query.split(" ")) {
+                for (int i = 0; i < filteredApps.size(); i++) {
+                    MobileApp app = filteredApps.get(i);
+                    if (app.getName() != null && !app.getName().toLowerCase().contains(q.toLowerCase())) {
+                        filteredApps.remove(i);
+                        i--;
                     }
                 }
-                mView.setTopFreeApps(filteredApps);
             }
+            return filteredApps;
         }
-
     }
-
 
     private void setViewLoading(boolean isLoading) {
         mIsLoading = isLoading;
@@ -124,13 +120,14 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
 
     @Override
     public void onQueryTextChange(String query) {
+        assert mView != null;
         mQuery = query;
         if (query.isEmpty()) {
             mView.showQueryText(false);
         } else {
             mView.showQueryText(true);
             mView.setQueryText(query);
-            filterAndSetTopFreeApps(query, mTopFreeApps);
+            mView.setTopFreeApps(filter(query, mTopFreeApps));
         }
     }
 }
